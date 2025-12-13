@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Study Assistant - Gemini AI</title>
+    <link rel="stylesheet" href="../asset/style/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>📚 PDF Study Assistant</h1>
+            <p class="subtitle">Upload PDFs, get lecture notes, and ask questions using Gemini AI</p>
+        </header>
+
+        <!-- API Key Input -->
+        <div class="card api-key-section" id="apiKeySection">
+            <h2>🔑 Enter Your Gemini API Key</h2>
+            <p class="info-text">Get your free API key from: <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></p>
+            <div class="api-input-group">
+                <input 
+                    type="password" 
+                    id="apiKeyInput" 
+                    class="api-input" 
+                    placeholder="Enter your Gemini API key..."
+                >
+                <button class="btn" onclick="saveApiKey()">Save Key</button>
+            </div>
+        </div>
+
+        <!-- Main Content (Hidden until API key is entered) -->
+        <div id="mainContent" style="display: none;">
+            <div class="grid">
+                <!-- Left Column -->
+                <div>
+                    <!-- Upload Section -->
+                    <div class="card">
+                        <h2>📤 Upload PDFs</h2>
+                        <input type="file" id="fileInput" class="file-input" accept=".pdf" multiple>
+                        <button class="btn" onclick="document.getElementById('fileInput').click()">
+                            Choose PDF Files
+                        </button>
+                        <div id="fileList" class="file-list"></div>
+                    </div>
+
+                    <!-- Lecture Notes Section -->
+                    <div class="card" style="margin-top: 30px;">
+                        <div class="header-actions">
+                            <h2>📝 Lecture Notes</h2>
+                            <button id="readAloudBtn" class="btn btn-small btn-success" onclick="toggleReadAloud()" style="display: none;">
+                                🔊 Read Aloud
+                            </button>
+                        </div>
+                        <div id="notesBox" class="content-box empty">
+                            Upload a PDF to generate lecture notes
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="card">
+                    <h2>💬 Ask Questions</h2>
+                    <div id="chatBox" class="content-box empty">
+                        Ask any questions about your PDFs
+                    </div>
+                    <div class="chat-input-area">
+                        <input 
+                            type="text" 
+                            id="questionInput" 
+                            class="chat-input" 
+                            placeholder="Type your question..."
+                            disabled
+                        >
+                        <button id="askBtn" class="btn btn-small" onclick="askQuestion()" disabled>
+                            Ask
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="info-box">
+            <h3>🚀 How to Use:</h3>
+            <ol>
+                <li>Get your free API key from <strong><a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></strong></li>
+                <li>Enter the API key above and click "Save Key"</li>
+                <li>Upload your PDF files (no limit!)</li>
+                <li>Wait for AI to generate lecture notes</li>
+                <li>Click "Read Aloud" to hear the notes</li>
+                <li>Ask any questions about your PDFs in the chat</li>
+            </ol>
+            <p class="note">✅ Your API key is stored locally in your browser - it's completely safe!</p>
+        </div>
+    </div>
+
+    <script src="../asset/script/main.js"></script>
+</body>
+</html>
