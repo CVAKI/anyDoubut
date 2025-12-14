@@ -15,7 +15,8 @@ body {
     color: #ffffff; /* WHITE */
     overflow-x: hidden;
     line-height: 1.6;
-    cursor: none;
+    /* The custom cursor is handled in the next block, and hidden in media queries */
+    cursor: none; 
 }
 
 /* Custom Cursor */
@@ -494,12 +495,13 @@ body {
 }
 
 .mobile-menu-btn {
-    display: none;
+    display: none; /* Hidden by default on desktop */
     flex-direction: column;
     background: none;
     border: none;
     cursor: pointer;
     padding: 0.5rem;
+    z-index: 1010; /* Ensure it's above other elements */
 }
 
 .mobile-menu-btn span {
@@ -1544,7 +1546,248 @@ body {
     box-shadow: 0 10px 25px rgba(255, 0, 0, 0.5); /* Stronger Red Shadow */
 }
 
-/* Media Queries (Color-related changes only) */
+/* ========================================================= */
+/* MOBILE STYLES (Max Width 768px)         */
+/* ========================================================= */
+
 @media (max-width: 768px) {
-    /* No color changes needed in the original media query section for now */
+    /* Base Overrides */
+    body {
+        cursor: auto; /* Re-enable default cursor for mobile */
+    }
+
+    /* Hide Custom Cursor on Mobile/Touch Devices */
+    .custom-cursor,
+    .cursor-follower {
+        display: none;
+    }
+
+    .container {
+        padding: 0 1rem; /* Reduce horizontal padding */
+    }
+
+    /* Navigation */
+    .nav-container {
+        padding: 0 1rem;
+    }
+    
+    .nav-links {
+        /* Mobile Menu Styling - Hiding default for collapsible menu */
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95); /* Black background for menu */
+        border-top: 1px solid rgba(255, 0, 0, 0.2);
+        padding: 1rem 0;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav-links.active {
+        display: flex; /* Show menu when active */
+    }
+    
+    .nav-link {
+        padding: 1rem 2rem;
+        text-align: center;
+        width: 100%;
+        border-radius: 0;
+    }
+    
+    .nav-link::before,
+    .nav-link::after {
+        display: none; /* Hide complex hover effects on touch */
+    }
+
+    .cta-button {
+        display: block;
+        margin: 1rem auto;
+        width: 90%;
+        max-width: 300px;
+        text-align: center;
+    }
+    
+    .mobile-menu-btn {
+        display: flex; /* Show hamburger button */
+    }
+
+    /* Hero Section */
+    .hero {
+        flex-direction: column;
+        padding-top: 6rem;
+        min-height: auto;
+        text-align: center;
+    }
+
+    .hero-content {
+        order: 2; /* Move content below visual for mobile */
+        max-width: 100%;
+        margin-bottom: 3rem;
+    }
+    
+    .hero-title {
+        font-size: clamp(2rem, 10vw, 4rem);
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+
+    .hero-visual {
+        order: 1; /* Move visual above content for mobile */
+        margin-bottom: 3rem;
+    }
+    
+    .music-player-mockup {
+        width: 280px;
+        height: 400px;
+    }
+    
+    .album-cover {
+        width: 160px;
+        height: 160px;
+        border-width: 2px;
+    }
+    
+    .play-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        transform: scale(1); /* Keep play button visible on touch for engagement */
+    }
+    
+    .album-cover:hover .play-button {
+        transform: scale(1); /* Override hover scale for mobile */
+    }
+    
+    .cover-overlay {
+        opacity: 0.8; /* Keep overlay slightly visible for better contrast */
+    }
+
+    /* Sections */
+    .music, .stats-section, .about-section {
+        padding: 4rem 1rem; /* Reduced vertical padding */
+    }
+    
+    .section-header {
+        margin-bottom: 3rem;
+    }
+    
+    .section-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+    
+    /* Music Grid */
+    .music-grid {
+        grid-template-columns: 1fr; /* Single column layout */
+        gap: 2rem;
+    }
+    
+    .music-card {
+        padding: 1.5rem;
+    }
+
+    .music-card:hover {
+        transform: translateY(-5px); /* Simplified hover effect for better touch compatibility */
+        box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for denser information */
+        gap: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
+    /* About Section */
+    .about-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .about-content {
+        order: 2;
+    }
+
+    .about-visual {
+        order: 1;
+        min-height: 250px;
+        margin-bottom: 2rem;
+    }
+    
+    .vinyl-record {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .vinyl-label {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .philosophy-text {
+        font-size: 1rem;
+    }
+
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr; /* Single column layout */
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .footer-section h3::after {
+        left: 50%;
+        transform: translateX(-50%); /* Center the underline */
+    }
+
+    .footer-section a {
+        justify-content: center;
+    }
+    
+    .footer-section a:hover {
+        transform: none; /* Disable shift on touch */
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .powered-badge {
+        display: none; /* Hide the badge for cleaner mobile nav */
+    }
+    
+    .back-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* ========================================================= */
+/* EXTRA SMALL SCREENS (Max Width 480px)   */
+/* ========================================================= */
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr; /* Single column for stats on very small screens */
+    }
 }
