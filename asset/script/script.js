@@ -373,6 +373,117 @@ console.log('%c🚀 NDSI Pvt Ltd - PDF Study Assistant', 'font-size: 20px; color
 console.log('%cBuilt with ❤️ by Harinandh S Nair & Sivanandh Shibu', 'font-size: 14px; color: #3050F8;');
 console.log('%cPowered by Gemini AI', 'font-size: 12px; color: #5028F8;');
 
+//=========================================================================================================================================
+// Add this to your script.js file
+
+// Function to download the app
+function downloadApp() {
+    // Path to your APK file
+    const apkPath = 'anydoubt.apk';
+    
+    // Create a temporary anchor element
+    const link = document.createElement('a');
+    link.href = apkPath;
+    link.download = 'anyDoubt.apk';
+    
+    // Trigger the download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Optional: Show a download notification
+    showDownloadNotification();
+}
+
+// Function to show download notification
+function showDownloadNotification() {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'download-notification';
+    notification.innerHTML = `
+        <i class="fas fa-download"></i>
+        <span>Downloading anyDoubt.apk...</span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Show notification
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+    
+    // Hide and remove notification after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+// Add event listeners when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Get all download buttons
+    const launchAppButtons = document.querySelectorAll('a[href="anydoubt.apk"], a[href*="Launch App"]');
+    const getStartedButtons = document.querySelectorAll('a[href="main/main.html"]');
+    
+    // Add click event to Launch App buttons
+    launchAppButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            downloadApp();
+        });
+    });
+    
+    // Optionally: Make Get Started also download the app
+    // Remove this section if you want Get Started to navigate to main.html instead
+    getStartedButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            downloadApp();
+        });
+    });
+});
+
+// CSS for download notification - Add this to your styles.css
+const notificationStyles = `
+.download-notification {
+    position: fixed;
+    bottom: -100px;
+    right: 2rem;
+    background: linear-gradient(45deg, #ff0000, #ff6600);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+    z-index: 10001;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.download-notification.show {
+    bottom: 2rem;
+}
+
+.download-notification i {
+    font-size: 1.5rem;
+    animation: downloadBounce 1s ease-in-out infinite;
+}
+
+@keyframes downloadBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+`;
+
+// Inject notification styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = notificationStyles;
+document.head.appendChild(styleSheet);
+
 // ==========================================
 // INITIALIZATION COMPLETE
 // ==========================================
